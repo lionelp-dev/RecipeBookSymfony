@@ -1,67 +1,99 @@
-# Carnet de recettes
+# Recipe Book — Symfony, API Platform et React
 
-Carnet de recettes est une application pédagogique pour découvrir l'environnement Symfony. Elle permet de gérer une collection de recettes avec Doctrine ORM, des formulaires Symfony et une interface Twig mise en forme avec Tailwind CSS.
+Recipe Book est une application web full-stack pédagogique de gestion de recettes, construite avec Symfony, API Platform, Doctrine ORM, SQLite et React. Elle permet de consulter, de créer, de modifier et de supprimer des recettes comprenant un nom, une description, un temps de préparation et un temps de cuisson.
 
-Chaque recette possède un nom, une description, un temps de préparation et un temps de cuisson. L'application couvre le cycle complet de création, de consultation, de modification et de suppression des données.
+![Interface de Recipe Book](./docs/images/app.png)
 
 ## Objectifs d'apprentissage
 
-Ce projet sert de support pour pratiquer les bases d'une application Symfony :
+Ce projet sert de support pour pratiquer :
 
-- définir des contrôleurs et des routes avec des attributs PHP ;
-- créer et traiter des formulaires Symfony liés à une entité ;
-- manipuler une base de données avec Doctrine ORM, les migrations et les repositories ;
-- charger des données de démonstration avec les fixtures Doctrine ;
-- construire des vues avec Twig, des partials et un thème de formulaire personnalisé ;
-- intégrer Tailwind CSS avec SymfonyCasts TailwindBundle ;
-- protéger une action sensible avec un token CSRF.
+- la création d'une API REST avec Symfony et API Platform ;
+- la persistance et la validation des données avec Doctrine ORM et le Validator Symfony ;
+- la description d'une API avec OpenAPI et Swagger ;
+- la création d'une interface React avec des routes basées sur les fichiers ;
+- la gestion des données distantes avec TanStack Query ;
+- la construction de formulaires et la gestion des états de chargement et d'erreur ;
+- l'intégration d'un frontend et d'une API grâce au proxy Vite et à CORS.
 
 ## Fonctionnalités
 
-- affichage de toutes les recettes ;
+- affichage et actualisation de la collection de recettes ;
 - ajout d'une recette ;
 - modification d'une recette existante ;
-- suppression d'une recette avec confirmation et protection CSRF ;
-- données de démonstration comprenant plusieurs recettes françaises.
+- suppression d'une recette après confirmation ;
+- validation du nom et des temps de préparation et de cuisson ;
+- données de démonstration comprenant plusieurs recettes françaises ;
+- documentation interactive de l'API avec Swagger.
 
-## Prérequis
+## Architecture
+
+Le projet est organisé en deux applications :
+
+- `api/` : API REST basée sur Symfony 8.1, API Platform 4.3, Doctrine ORM et SQLite ;
+- `frontend/` : interface React 19 basée sur TanStack Start, TanStack Router, TanStack Query, Vite et Tailwind CSS.
+
+## Installation
+
+### Prérequis
 
 - PHP 8.4 ou supérieur ;
 - Composer ;
-- l'extension PHP SQLite.
+- l'extension PHP SQLite ;
+- Symfony CLI ;
+- Node.js ;
+- pnpm.
+
+### Backend
+
+Installer les dépendances de l'API :
+
+```bash
+cd api
+composer install
+```
+
+Créer la base de données en appliquant les migrations :
+
+```bash
+php bin/console doctrine:migrations:migrate --no-interaction
+```
+
+Charger les recettes de démonstration :
+
+```bash
+php bin/console doctrine:fixtures:load --no-interaction
+```
+
+Cette commande remplace les données déjà présentes dans la base.
+
+### Frontend
+
+Installer les dépendances du frontend depuis la racine du projet :
+
+```bash
+cd frontend
+pnpm install
+```
 
 ## Démarrage
 
-1. Installer les dépendances PHP :
+Dans un premier terminal, lancer l'API :
 
-   ```bash
-   composer install
-   ```
+```bash
+cd api
+symfony server:start
+```
 
-2. Créer la base de données en appliquant les migrations :
+Dans un second terminal, lancer le frontend :
 
-   ```bash
-   php bin/console doctrine:migrations:migrate --no-interaction
-   ```
+```bash
+cd frontend
+pnpm dev
+```
 
-3. Charger les recettes de démonstration :
+Les services sont alors disponibles aux adresses suivantes :
 
-   ```bash
-   php bin/console doctrine:fixtures:load --no-interaction
-   ```
-
-   Cette commande remplace les données déjà présentes dans la base.
-
-4. Dans un premier terminal, compiler Tailwind CSS et surveiller les modifications :
-
-   ```bash
-   php bin/console tailwind:build --watch
-   ```
-
-5. Dans un second terminal, lancer le serveur PHP :
-
-  ```bash
-  symfony server:start 
-   ```
-
-L'application est disponible sur `http://127.0.0.1:8000/`.
+- application React : `http://localhost:3000/` ;
+- documentation Swagger : `http://127.0.0.1:8000/api` ;
+- collection JSON des recettes : `http://127.0.0.1:8000/api/recipes`.

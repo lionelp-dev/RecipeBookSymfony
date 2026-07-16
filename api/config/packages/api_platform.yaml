@@ -1,0 +1,26 @@
+api_platform:
+    title: Carnet de recettes API
+    description: API de gestion des recettes.
+    version: 1.0.0
+    formats:
+        json:
+            mime_types: ['application/json']
+    patch_formats:
+        json:
+            mime_types: ['application/merge-patch+json']
+    docs_formats:
+        html:
+            mime_types: ['text/html']
+        jsonopenapi:
+            mime_types: ['application/vnd.openapi+json']
+        yamlopenapi:
+            mime_types: ['application/vnd.openapi+yaml']
+    error_formats:
+        jsonproblem:
+            mime_types: ['application/problem+json']
+        json:
+            mime_types: ['application/problem+json']
+    defaults:
+        stateless: true
+        cache_headers:
+            vary: ['Content-Type', 'Authorization', 'Origin']
