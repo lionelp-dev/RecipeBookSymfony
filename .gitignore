@@ -18,3 +18,13 @@
 /public/assets/
 /assets/vendor/
 ###< symfony/asset-mapper ###
+
+###> nested api/frontend generated files ###
+/api/.phpunit.cache/
+/api/public/bundles/
+/api/var/
+/api/vendor/
+/frontend/.tanstack/
+/frontend/dist/
+/frontend/node_modules/
+###< nested api/frontend generated files ###

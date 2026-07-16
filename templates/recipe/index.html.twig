@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recettes{% endblock %}
+
+{% block body %}
+<div class="min-h-screen bg-slate-100 text-slate-950">
+    <div class="flex min-h-screen">
+        <aside class="hidden w-64 shrink-0 border-r border-slate-200 bg-white lg:block"></aside>
+
+        <div class="flex min-w-0 flex-1 flex-col">
+            <header class="border-b border-slate-200 bg-white px-6 py-4">
+                <div class="mx-auto flex w-full max-w-6xl justify-end">
+                    <a href="{{ path('app_recipe_new') }}" class="rounded-md bg-slate-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-800">
+                        Ajouter une recette
+                    </a>
+                </div>
+            </header>
+
+            <main class="flex flex-col flex-1 px-6 py-8 gap-5">
+                <div class="mx-auto w-full max-w-6xl">
+                    <div>
+                        <h1 class="text-xl font-semibold">Recettes</h1>
+                        <p class="text-sm text-slate-500">Toutes les recettes disponibles</p>
+                    </div>
+                </div>
+                <div class="mx-auto w-full max-w-6xl">
+                    {% if recipes is empty %}
+                        <div class="rounded-lg border border-dashed border-slate-300 bg-white px-6 py-12 text-center">
+                            <p class="text-sm font-medium text-slate-700">Aucune recette pour le moment.</p>
+                            <p class="mt-1 text-sm text-slate-500">Charge les fixtures ou ajoute une recette pour remplir cette page.</p>
+                            <a href="{{ path('app_recipe_new') }}" class="mt-5 inline-flex rounded-md bg-slate-950 px-4 py-2 text-sm font-medium text-white transition hover:bg-slate-800">
+                                Ajouter une recette
+                            </a>
+                        </div>
+                    {% else %}
+                        <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+                            {% for recipe in recipes %}
+                                {{ include('recipe/_card.html.twig', {recipe: recipe}, with_context = false) }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                </div>
+            </main>
+        </div>
+    </div>
+</div>
+{% endblock %}
